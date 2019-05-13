@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <title>Mobiliteca Platform</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <a class="logout" href="http://localhost:8082/loginmobiliteca">log out</a>
+    <img class="mobiliteca" src="/logomobiliteca.jpg">
+    <h1 class="platform">Platform</h1>
+    <h2 class="up">Upload your files here:</h2>
+
+    <div id="main">
+            <image-modal v-if="currentImage" :id="currentImage" @close="closeModal"></image-modal>
+        <form>
+            <input class="fieldo" v-model="form.title" type="text" name="title" placeholder="title" autocomplete="off">
+            <input class="fieldo" v-model="form.description" type="text" name="description" placeholder="description" autocomplete="off">
+            <input class="fieldo" v-model="form.username" type="text" name="username" placeholder="username" autocomplete="off">
+            <input class="choose" type="file" accept="image/*" name="file" @change="handleFileChange" autocomplete="off">
+            <button class="upload" @click="uploadFile">upload</button>
+        </form>
+
+        <h2 class="latest">Last Uploads</h2>
+
+        <div v-if="images.length" class="imagesOn">
+            <div v-for="image in images" @click="setCurrentImage(image.id)">
+                    <img :src="image.url" class="sizeimage">
+                <p class="texto">{{ image.title }}</p>
+            </div>
+        </div>
+    </div>
+
+    <script id="myPopUp" type="text/x-template">
+        <div class="thePopup">
+            <div class="imagePopup">
+                <div class="divi">
+                    <img class="secondImage" :src="imagePopup.url" @click="closeNow">
+                    <p class="texto2"> {{ imagePopup.title }} </p>
+                    <p class="texto3"> {{ imagePopup.description}} </p>
+                    <p class="texto4"> <strong>uploaded by: </strong> {{ imagePopup.username}} </p>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script src="/js/vue.js"></script>
+    <script src="/js/axios.min.js"></script>
+    <script src="/js/script.js"></script>
+</body>
+</html>
